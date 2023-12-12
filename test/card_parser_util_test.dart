@@ -100,19 +100,15 @@ void main() {
         CardInfo(number: '4242424242424242', cvv: sampleCvv, expiry: '12/22'));
   });
 
-  test('Returns card info when recognized text has misspelles', () async {
-    const misspelledCardNumber = 'Ll42 Ss42 Oo42 4242';
-    const sampleDetectedExpiryDate = 'l2/22';
-    const misspelledCvv = '12s';
-    const otherDetectedText1 = 'cvv2';
+  test('Returns card info when expiry date and cvv are in a single line', () async {
+    const cardNumber = '4242-4242-4242-4242';
+    const mixedEpiryDateWithCvv = 'VALIDTO04/23*"215ev';
     when(() => textRecognizer.processImage(sampleCardImage)).thenAnswer(
       (_) async => RecognizedText(
         text: '',
         blocks: [
-          getSampleTextBlock(misspelledCardNumber),
-          getSampleTextBlock(sampleDetectedExpiryDate),
-          getSampleTextBlock(misspelledCvv),
-          getSampleTextBlock(otherDetectedText1),
+          getSampleTextBlock(cardNumber),
+          getSampleTextBlock(mixedEpiryDateWithCvv),
         ],
       ),
     );
@@ -122,6 +118,6 @@ void main() {
     );
 
     expect(result,
-        CardInfo(number: '1142554200424242', cvv: '125', expiry: '12/22'));
+        CardInfo(number: '4242424242424242', cvv: '215', expiry: '04/23'));
   });
 }
