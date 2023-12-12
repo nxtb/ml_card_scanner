@@ -5,9 +5,6 @@ import 'package:ml_card_scanner/ml_card_scanner.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  /*await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );*/
   runApp(const MaterialApp(home: MainScreen()));
 }
 
